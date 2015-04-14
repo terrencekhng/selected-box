@@ -13,15 +13,15 @@
     var _boxInsider = {
       wrapper: {
         selector: 'div',
-        class: 'selected-box',
+        klass: 'selected-box',
         child: [
           {
             selector: 'div',
-            class: 'selected-box-cover invisible',
+            klass: 'selected-box-cover invisible',
             child: [
               {
                 selector: 'i',
-                class: 'icon-ok'
+                klass: 'icon-ok'
               }
             ]
           },
@@ -100,8 +100,8 @@
           temp = document.createElement(prop[i].selector);
         }
 
-        if (prop[i].hasOwnProperty('class')) {
-          $(temp).addClass(prop[i].class);
+        if (prop[i].hasOwnProperty('klass')) {
+          $(temp).addClass(prop[i].klass);
         }
 
         $(temp).appendTo(father);
@@ -125,8 +125,8 @@
 
         _box = document.createElement(_boxInsider['wrapper'].selector);
 
-        if (_boxInsider['wrapper'].hasOwnProperty('class')) {
-          $(_box).addClass(_boxInsider['wrapper'].class);
+        if (_boxInsider['wrapper'].hasOwnProperty('klass')) {
+          $(_box).addClass(_boxInsider['wrapper'].klass);
         }
 
         if (_boxInsider['wrapper'].hasOwnProperty('child')) {
@@ -339,7 +339,7 @@
 
   }());
 
+  // Expose selected_box to the global object.
   window.selected_box = selected_box;
 
 }(window));
-
