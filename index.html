@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Selected Box</title>
+
+  <link rel="stylesheet" type="text/css" href="styles/selected_box.css">
+  <link rel="stylesheet" type="text/css" href="styles/fontello.css">
+
+  <script type="text/javascript" src="scripts/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="scripts/selected_box.js"></script>
+
+</head>
+<body>
+
+<div class="selected-box-area">
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+  var data = [{Name: 'Apple', Value: 'A'}, {Name: 'Boy', Value: 'B'}, {Name: 'Cat', Value: 'C'}, {Name: 'Dog', Value: 'D'}];
+
+  selected_box.init($('.selected-box-area'), {
+    preArea: ['GD', 'DB'],
+    limit: 2
+  });
+
+  var i;
+  for (i = 0; i < data.length; ++i) {
+    selected_box.generate(data[i].Name, data[i].Value);
+  }
+
+  //alert(selected_box.getActiveValues());
+
+  /*selected_box.event('click', function (e) {
+    alert(e);
+  });*/
+
+</script>
+
+</html>

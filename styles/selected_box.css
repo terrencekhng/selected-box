@@ -1,0 +1,50 @@
+/* reset */
+body, p, div {
+  margin: 0;
+}
+
+.clearfix:before {
+  content: '';
+  clear: both;
+  height: 0;
+}
+
+.selected-box {
+  float: left;
+  background-color: #1994d1;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  margin: 4px;
+  padding: 4px;
+  text-align: center;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.selected-box:hover {
+  background-color: #1888c3;
+}
+
+
+.selected-box.active {
+  background-color: rgba(39, 39, 39, 0.65);
+  color: #bfbfbf;
+}
+
+.selected-box.disabled {
+  background-color: rgba(25, 148, 209, 0.30);
+}
+
+.selected-box-cover {
+  position: absolute;
+  z-index: 999;
+
+}
+
+.invisible {
+  display: none;
+}
