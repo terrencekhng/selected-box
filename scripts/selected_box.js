@@ -1,5 +1,9 @@
 (function (window) {
 
+<<<<<<< HEAD
+=======
+  // Use the correct document accordingly with window argument (sandbox).
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
   var document = window.document;
 
   var selected_box = (function () {
@@ -102,6 +106,47 @@
 
         if (prop[i].hasOwnProperty('klass')) {
           $(temp).addClass(prop[i].klass);
+<<<<<<< HEAD
+        }
+
+        $(temp).appendTo(father);
+
+        if (prop[i].hasOwnProperty('child')) {
+          _constructBoxRecursively($(temp), prop[i].child);
+        }
+      }
+
+    };
+
+    /**
+     *
+     * @method _constructBox
+     **/
+    var _constructBox = function () {
+
+      var _box = null;
+
+      if (_boxInsider.hasOwnProperty('wrapper')) {
+
+        _box = document.createElement(_boxInsider['wrapper'].selector);
+
+        if (_boxInsider['wrapper'].hasOwnProperty('klass')) {
+          $(_box).addClass(_boxInsider['wrapper'].klass);
+        }
+
+        if (_boxInsider['wrapper'].hasOwnProperty('child')) {
+          _constructBoxRecursively($(_box), _boxInsider['wrapper'].child);
+        }
+
+      }
+
+      return $(_box);
+    };
+
+
+    // self invoke
+    (function () {
+=======
         }
 
         $(temp).appendTo(father);
@@ -197,6 +242,66 @@
           box.find('.selected-box-cover').width(box.width());
           //box.disabled = true;
           counterActive += 1;
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
+
+        }
+      }
+
+<<<<<<< HEAD
+    }());
+
+    /**
+     * Initialize this component, given the element of the father which
+     * is going to wrap the component, and send to local object-wide
+     * '_selector'.
+     *
+     * @method init
+     * @param {Object} selector the selector of the father element.
+     **/
+    var _init = function (selector, config) {
+
+      if (typeof (selector) !== 'undefined' && selector != null) {
+        _selector = selector;
+      }
+
+      if (typeof (config) !== 'undefined' && config != null) {
+        _config = config;
+      }
+    };
+
+    /**
+     * Create the component and draw it on the screen, given the name to
+     * be displayed and the value to get.
+     *
+     * @method _generate
+     * @param {String} name which is going to be displayed in the component.
+     * @param {String} value which is store in the related component and is
+     *                 used to returned its value on demand.
+     * @private
+     **/
+    var _generate = function (name, value) {
+
+      box = _constructBox();
+
+      addEvents();
+
+      if (name != null && value != null) {
+        box.find('span').text(name);
+        box.attr('value', value);
+      } else {
+        return;
+      }
+
+      var i;
+
+      for (i = 0; i < _config.preArea.length; ++i) {
+        if (value === _config.preArea[i]) {
+          box.addClass('active');
+          box.find('.selected-box-cover').removeClass('invisible');
+          box.find('.selected-box-cover').addClass('visible');
+          box.find('.selected-box-cover').width(box.width());
+          //box.disabled = true;
+          counterActive += 1;
 
         }
       }
@@ -205,8 +310,44 @@
 
       refresh();
     };
+=======
+      box.appendTo(_selector);
+
+      refresh();
+    };
 
 
+    /**
+     * Refresh is to update the state of every boxes, for instance, if the number of
+     * selected boxes is greater than the pre-defined value, then the rest of the boxes
+     *  would be disabled, counterActive is used to store the number.
+     *
+     * @method refresh
+     */
+    var refresh = function () {
+
+      if (counterActive != null) {
+
+        if (counterActive < _config.limit) {
+          _selector.find('.selected-box').each(function () {
+
+            if ($(this).hasClass('disabled')) {
+              $(this).removeClass('disabled');
+            }
+          });
+        } else {
+          _selector.find('.selected-box').each(function () {
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
+
+            if ($(this).hasClass('disabled') === false && $(this).hasClass('active') === false) {
+              $(this).addClass('disabled');
+            }
+          });
+        }
+      }
+    };
+
+<<<<<<< HEAD
     /**
      * Refresh is to update the state of every boxes, for instance, if the number of
      * selected boxes is greater than the pre-defined value, then the rest of the boxes
@@ -236,8 +377,31 @@
         }
       }
     };
+=======
 
+    /**
+     * Append events to specific element.
+     *
+     * @method addEvents
+     **/
+    var addEvents = function () {
 
+      box.click(function () {
+
+        if ($(this).hasClass('active') === false && $(this).hasClass('disabled') === false) {
+          $(this).addClass('active');
+          $(this).find('.selected-box-cover').removeClass('invisible');
+          $(this).find('.selected-box-cover').addClass('visible');
+          $(this).find('.selected-box-cover').width($(this).width());
+
+          curActive = $(this);
+
+          counterActive += 1;
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
+
+          refresh();
+
+<<<<<<< HEAD
     /**
      * Append events to specific element.
      *
@@ -286,6 +450,33 @@
       switch (type) {
 
         case 'click':
+=======
+        } else if ($(this).hasClass('disabled') === false) {
+          $(this).removeClass('active');
+          $(this).find('.selected-box-cover').removeClass('visible');
+          $(this).find('.selected-box-cover').addClass('invisible');
+
+          counterActive -= 1;
+
+          refresh();
+
+        }
+      });
+    };
+
+    /**
+     * Allow to add custom event attached to a specific action.
+     *
+     * @method Events
+     * @param {String} type action type, like 'click', 'hover', 'mouseenter', 'mouseleave', ...
+     * @param {Function} fn user defined callback function.
+     * @constructor
+     */
+    var Events = function (type, fn) {
+
+      switch (type) {
+
+        case 'select':
 
           _selector.find('.selected-box').each(function () {
             $(this).click(function () {
@@ -303,8 +494,37 @@
             });
           });
 
+        case 'unselect':
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
+
+          _selector.find('.selected-box').each(function () {
+            $(this).click(function () {
+
+              // NOTE: a little strange here!!!
+<<<<<<< HEAD
+              if ($(this).hasClass('active') !== false && $(this).hasClass('disabled') === false) {
+=======
+              if ($(this).hasClass('active') === false && $(this).hasClass('disabled') === false) {
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
+
+                if (typeof (fn) === 'function') {
+
+                  retValue = $(this).attr('value');
+
+                  fn(retValue);
+                }
+              }
+            });
+          });
+
           break;
+<<<<<<< HEAD
         /* No default case */
+=======
+
+        /* No default case */
+
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
       }
     };
 
@@ -325,6 +545,10 @@
     };
 
 
+<<<<<<< HEAD
+=======
+    // Expose variables and methods
+>>>>>>> 500bf30ee631eb09d524356af6c8d495bcb315f8
     return {
 
       // methods
